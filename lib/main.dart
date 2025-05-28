@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-
+import 'package:page_flip/page_flip.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 // Models (بدون تغییر)
@@ -324,6 +324,8 @@ class _SuraPageState extends State<SuraPage> {
   final ItemScrollController _scrollController = ItemScrollController();
   final ItemPositionsListener _positionsListener =
       ItemPositionsListener.create();
+  final GlobalKey<PageFlipBuilderState> _pageFlipKey =
+      GlobalKey<PageFlipBuilderState>(); // تغییر به PageFlipBuilderState
   int _currentSura = 0;
   int _currentPage = 0;
   int _currentJoz = 0;
@@ -332,26 +334,24 @@ class _SuraPageState extends State<SuraPage> {
   void initState() {
     super.initState();
     _currentSura = widget.suraId;
-    // گوش دادن به تغییرات موقعیت برای به‌روزرسانی داینامیک
-    _positionsListener.itemPositions.addListener(_updateCurrentInfo);
   }
 
-  @override
-  void dispose() {
-    _positionsListener.itemPositions.removeListener(_updateCurrentInfo);
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _positionsListener.itemPositions.removeListener(_updateCurrentInfo);
+  //   super.dispose();
+  // }
 
-  void _updateCurrentInfo() {
+  void _updateCurrentInfo(int suraId, ItemPositionsListener positionsListener) {
     final viewModel = Provider.of<QuranViewModel>(context, listen: false);
-    final positions = _positionsListener.itemPositions.value;
+    final positions = positionsListener.itemPositions.value;
     if (positions.isNotEmpty) {
       final firstVisibleIndex = positions
           .where((pos) => pos.itemLeadingEdge >= 0)
           .reduce((min, pos) =>
               pos.itemLeadingEdge < min.itemLeadingEdge ? pos : min)
           .index;
-      final ayah = viewModel.getAyahsBySura(_currentSura)[firstVisibleIndex];
+      final ayah = viewModel.getAyahsBySura(suraId)[firstVisibleIndex];
       setState(() {
         _currentPage = ayah.pageNo;
         _currentJoz = ayah.joz;
@@ -492,41 +492,14 @@ class _SuraPageState extends State<SuraPage> {
     );
   }
 
-  void _navigateToPreviousSura(BuildContext context) {
-    final viewModel = Provider.of<QuranViewModel>(context, listen: false);
-    final currentIndex =
-        viewModel.quranNameList.indexWhere((sura) => sura.id == _currentSura);
-    if (currentIndex > 0) {
-      final previousSura = viewModel.quranNameList[currentIndex - 1];
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => SuraPage(suraId: previousSura.id)),
-      );
-    }
-  }
-
-  void _navigateToNextSura(BuildContext context) {
-    final viewModel = Provider.of<QuranViewModel>(context, listen: false);
-    final currentIndex =
-        viewModel.quranNameList.indexWhere((sura) => sura.id == _currentSura);
-    if (currentIndex < viewModel.quranNameList.length - 1) {
-      final nextSura = viewModel.quranNameList[currentIndex + 1];
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SuraPage(suraId: nextSura.id)),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context);
-    final ayahs = viewModel.getAyahsBySura(widget.suraId);
-    final translations = viewModel.getTranslationsBySura(widget.suraId);
     final suraName = viewModel.quranNameList
         .firstWhere((sura) => sura.id == widget.suraId)
         .sura;
+    final suraIndex =
+        viewModel.quranNameList.indexWhere((sura) => sura.id == widget.suraId);
 
     return Scaffold(
       appBar: AppBar(
@@ -551,43 +524,61 @@ class _SuraPageState extends State<SuraPage> {
           ],
         ),
       ),
-      body: GestureDetector(
-        onHorizontalDragEnd: (details) {
-          // تشخیص جهت کشیدن
-          if (details.primaryVelocity! > 0) {
-            // کشیدن به راست -> سوره قبلی
-            _navigateToPreviousSura(context);
-          } else if (details.primaryVelocity! < 0) {
-            // کشیدن به چپ -> سوره بعدی
-            _navigateToNextSura(context);
-          }
+      body: PageView.builder(
+        controller: PageController(initialPage: suraIndex),
+        itemCount: viewModel.quranNameList.length,
+        onPageChanged: (index) {
+          setState(() {
+            _currentSura = viewModel.quranNameList[index].id;
+          });
         },
-        child: ScrollablePositionedList.builder(
-          itemScrollController: _scrollController,
-          itemPositionsListener: _positionsListener,
-          itemCount: ayahs.length,
-          itemBuilder: (context, index) {
-            final ayah = ayahs[index];
-            final translation = translations.firstWhere(
-              (trans) => trans.aya == ayah.aya,
-              orElse: () =>
-                  QuranTranslation(index: 0, sura: 0, aya: 0, text: ''),
-            );
-            return GestureDetector(
-              onTap: () {
-                _scrollController.scrollTo(
-                  index: index,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeInOut,
-                );
-              },
-              child: AyahWidget(
-                ayah: ayah,
-                translation: translation.text.isNotEmpty ? translation : null,
+        itemBuilder: (context, index) {
+          final sura = viewModel.quranNameList[index];
+          final ayahs = viewModel.getAyahsBySura(sura.id);
+          final translations = viewModel.getTranslationsBySura(sura.id);
+          // کنترلرهای مستقل برای هر سوره
+          final scrollController = ItemScrollController();
+          final positionsListener = ItemPositionsListener.create();
+          positionsListener.itemPositions.addListener(
+              () => _updateCurrentInfo(sura.id, positionsListener));
+
+          return Transform(
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001) // پرسپکتیو برای افکت ورق زدن
+              ..rotateY(0.0),
+            alignment: Alignment.center,
+            child: Container(
+              color: Colors.white,
+              child: ScrollablePositionedList.builder(
+                itemScrollController: scrollController,
+                itemPositionsListener: positionsListener,
+                itemCount: ayahs.length,
+                itemBuilder: (context, index) {
+                  final ayah = ayahs[index];
+                  final translation = translations.firstWhere(
+                    (trans) => trans.aya == ayah.aya,
+                    orElse: () =>
+                        QuranTranslation(index: 0, sura: 0, aya: 0, text: ''),
+                  );
+                  return GestureDetector(
+                    onTap: () {
+                      scrollController.scrollTo(
+                        index: index,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeOut,
+                      );
+                    },
+                    child: AyahWidget(
+                      ayah: ayah,
+                      translation:
+                          translation.text.isNotEmpty ? translation : null,
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

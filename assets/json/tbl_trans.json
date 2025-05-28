@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Shakir",
+    "table": "en_shakir",
+    "selection": 0
+  },
+  {
+    "id": 2,
+    "name": "انصاریان",
+    "table": "fa_ansarian",
+    "selection": 0
+  },
+  {
+    "id": 3,
+    "name": "فولادوند",
+    "table": "fa_fooladvand",
+    "selection": 0
+  },
+  {
+    "id": 4,
+    "name": "قمشه ای",
+    "table": "fa_ghomshei",
+    "selection": 0
+  },
+  {
+    "id": 5,
+    "name": "مکارم شیرازی",
+    "table": "fa_makarem",
+    "selection": 1
+  }
+]

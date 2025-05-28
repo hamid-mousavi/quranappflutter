@@ -1,0 +1,2 @@
+C:/Users/iR/Desktop/PR/Flutter/quran_app/android/app/.cxx/RelWithDebInfo/4c2g353i/x86/CMakeFiles/edit_cache.dir
+C:/Users/iR/Desktop/PR/Flutter/quran_app/android/app/.cxx/RelWithDebInfo/4c2g353i/x86/CMakeFiles/rebuild_cache.dir

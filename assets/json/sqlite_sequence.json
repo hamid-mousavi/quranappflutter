@@ -1,0 +1,50 @@
+[
+  {
+    "name": "quranNameList",
+    "seq": 125
+  },
+  {
+    "name": "quranJOZ",
+    "seq": 30
+  },
+  {
+    "name": "en_shakir",
+    "seq": 6236
+  },
+  {
+    "name": "fa_ansarian",
+    "seq": 6236
+  },
+  {
+    "name": "fa_fooladvand",
+    "seq": 6236
+  },
+  {
+    "name": "fa_ghomshei",
+    "seq": 6179
+  },
+  {
+    "name": "fa_makarem",
+    "seq": 6236
+  },
+  {
+    "name": "fa_qaraati",
+    "seq": 6236
+  },
+  {
+    "name": "latest_page",
+    "seq": 1
+  },
+  {
+    "name": "tbl_trans",
+    "seq": 7
+  },
+  {
+    "name": "tbl_trans_sound",
+    "seq": 4
+  },
+  {
+    "name": "tbl_qarian",
+    "seq": 26
+  }
+]

@@ -1,0 +1,70 @@
+name: quran
+description: "quran app Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  
+  dio: ^5.8.0+1
+  equatable: ^2.0.7
+  file_picker: ^10.1.2
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.0
+  flutter_dotenv: ^5.2.1
+  marquee: ^2.3.0
+  path_provider: ^2.1.5
+  permission_handler: ^12.0.0+1
+  uuid: ^4.5.1
+  image_picker: ^1.1.2
+  audioplayers: ^6.4.0
+  sqlite3_flutter_libs: ^0.5.0
+  drift: ^2.16.0
+  path: ^1.8.0
+
+  flutter_localizations:
+      sdk: flutter
+  flutter_tts: ^4.2.2
+  google_fonts: ^6.2.1
+  sqflite: ^2.4.2
+  sqflite_common_ffi_web: ^1.0.0
+  sqflite_common_ffi: ^2.3.5
+  scrollable_positioned_list: ^0.3.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  build_runner: ^2.4.7
+  freezed: ^2.4.6
+  json_serializable: ^6.7.1
+  drift_dev: ^2.16.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/json/quran_text.json
+    - assets/json/latest_page.json
+    - assets/json/fa_makarem.json
+    - assets/json/quranJOZ.json
+    - assets/json/quranNameList.json
+    - assets/json/en_shakir.json
+    - assets/json/fa_ansarian.json
+    - assets/json/fa_fooladvand.json
+    - assets/json/fa_ghomshei.json
+    - assets/json/fa_qaraati.json
+    - assets/json/tbl_qarian.json
+    - assets/json/tbl_setting.json
+    - assets/json/tbl_trans.json
+    - assets/json/tbl_trans_sound.json
+    - assets/quran.db
+    - web/sqflite_sw.js
+    - web/sqlite3.wasm
+
+
+
+
+  

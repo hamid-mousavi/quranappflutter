@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "آذربایجانی بلایف",
+    "folder": "translations/azerbaijani/balayev",
+    "selection": 0,
+    "folder1": "azeri"
+  },
+  {
+    "id": 2,
+    "name": "انگلیسی Saheen Inti",
+    "folder": "English/Sahih_Intnl_Ibrahim_Walk_192kbps",
+    "selection": 0,
+    "folder1": "ibrahim"
+  },
+  {
+    "id": 3,
+    "name": "فارسی فولادوند",
+    "folder": "translations/Fooladvand_Hedayatfar_40Kbps",
+    "selection": 0,
+    "folder1": "fooladvand"
+  },
+  {
+    "id": 4,
+    "name": "فارسی مکارم شیرازی",
+    "folder": "translations/Makarem_Kabiri_16Kbps",
+    "selection": 1,
+    "folder1": "makarem"
+  }
+]

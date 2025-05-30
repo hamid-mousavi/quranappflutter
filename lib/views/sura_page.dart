@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/models/quran_translation.dart';
 import 'package:quran/viewmodels/quran_view_model.dart';
+import 'package:quran/viewmodels/settings_view_model.dart';
 import 'package:quran/views/widgets/ayah_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -192,9 +193,11 @@ class _SuraPageState extends State<SuraPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context);
+    final setting = Provider.of<SettingsViewModel>(context);
     final suraName = viewModel.quranNameList.firstWhere((sura) => sura.id == _currentSura).sura;
 
     return Scaffold(
+      // backgroundColor: setting.backgroundColor,
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -238,7 +241,7 @@ class _SuraPageState extends State<SuraPage> {
               ..rotateY(0.0),
             alignment: Alignment.center,
             child: Container(
-              color: Colors.white,
+              // color: setting.backgroundColor,
               child: ScrollablePositionedList.builder(
                 itemScrollController: scrollController,
                 itemPositionsListener: positionsListener,

@@ -30,6 +30,7 @@ dependencies:
   google_fonts: ^6.2.1
   scrollable_positioned_list: ^0.3.8
   provider: ^6.1.5
+  flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -56,9 +57,20 @@ flutter:
     - assets/json/tbl_setting.json
     - assets/json/tbl_trans.json
     - assets/json/tbl_trans_sound.json
-    - assets/quran.db
-    - web/sqflite_sw.js
-    - web/sqlite3.wasm
+  fonts:
+    - family: amiri
+      fonts:
+        - asset: assets/fonts/Amiri/Amiri-Regular.ttf
+        - asset: assets/fonts/Amiri/Amiri-Bold.ttf
+    - family: amiriquran
+      fonts:
+        - asset: assets/fonts/Amiri_Quran/AmiriQuran-Regular.ttf
+    - family: vazirmatn
+      fonts:
+        - asset: assets/fonts/Vazirmatn/static/Vazirmatn-Regular.ttf
+        - asset: assets/fonts/Vazirmatn/static/Vazirmatn-Bold.ttf
+          weight: 700
+
 
 
 

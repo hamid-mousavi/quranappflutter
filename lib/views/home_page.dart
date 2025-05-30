@@ -24,6 +24,12 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
+           IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings'); // رفتن به صفحه تنظیمات
+            },
+          ),
         ],
       ),
       body: Consumer<QuranViewModel>(

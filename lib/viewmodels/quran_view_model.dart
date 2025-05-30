@@ -14,6 +14,12 @@ class QuranViewModel extends ChangeNotifier {
   List<QuranName> quranNameList = [];
   List<QuranTranslation> quranTranslationList = [];
   String? errorMessage;
+  List<int> favoriteSuraIds = []; // لیست آیدی‌های سوره‌های علاقه‌مندی
+  List<QuranName> filteredSuraList = []; // لیست فیلترشده برای نمایش
+
+  QuranViewModel() {
+    filteredSuraList = quranNameList; // در ابتدا لیست کامل
+  }
 
   Future<void> loadData(BuildContext context) async {
     try {
@@ -22,9 +28,60 @@ class QuranViewModel extends ChangeNotifier {
       quranTextList = await _service.loadQuranText(context);
       quranNameList = await _service.loadQuranNames(context);
       quranTranslationList = await _service.loadQuranTranslations(context);
+      filteredSuraList = quranNameList; // مقداردهی اولیه لیست فیلترشده
       errorMessage = null;
     } catch (e) {
       errorMessage = 'خطا در بارگذاری داده‌ها: $e';
+    }
+    notifyListeners();
+  }
+
+  // جستجوی سوره‌ها
+  void filterSuras(String query) {
+    if (query.isEmpty) {
+      filteredSuraList = quranNameList;
+    } else {
+      filteredSuraList = quranNameList
+          .where((sura) =>
+              sura.sura.toLowerCase().contains(query.toLowerCase()) ||
+              sura.id.toString().contains(query))
+          .toList();
+    }
+    notifyListeners();
+  }
+
+  // فیلتر بر اساس جزء
+  void filterByJuz() {
+    // برای سادگی، فرض می‌کنیم همه سوره‌ها نمایش داده شوند، اما می‌توانید منطق خاصی برای جزء اضافه کنید
+    filteredSuraList = quranNameList;
+    notifyListeners();
+  }
+
+  // فیلتر بر اساس علاقه‌مندی‌ها
+  void filterFavorites() {
+    filteredSuraList = quranNameList
+        .where((sura) => favoriteSuraIds.contains(sura.id))
+        .toList();
+    notifyListeners();
+  }
+
+  // بازگرداندن به حالت اولیه
+  void resetFilter() {
+    filteredSuraList = quranNameList;
+    notifyListeners();
+  }
+
+  // بررسی وضعیت علاقه‌مندی
+  bool isFavorite(int suraId) {
+    return favoriteSuraIds.contains(suraId);
+  }
+
+  // تغییر وضعیت علاقه‌مندی
+  void toggleFavorite(int suraId) {
+    if (favoriteSuraIds.contains(suraId)) {
+      favoriteSuraIds.remove(suraId);
+    } else {
+      favoriteSuraIds.add(suraId);
     }
     notifyListeners();
   }
@@ -36,38 +93,34 @@ class QuranViewModel extends ChangeNotifier {
   List<QuranTranslation> getTranslationsBySura(int sura) {
     return quranTranslationList.where((trans) => trans.sura == sura).toList();
   }
-  // گرفتن اولین آیه‌ای که در صفحه خاصی قرار دارد
-QuranText? getAyahByPage(int pageNo) {
-  return quranTextList.firstWhere(
-    (ayah) => ayah.pageNo == pageNo,
-    // orElse: () => null,
-  );
-}
 
-// گرفتن اولین آیه‌ای که در جزء خاصی قرار دارد
-QuranText? getFirstAyahOfJoz(int jozId) {
-  final joz = quranJozList.firstWhere((j) => j.id == jozId,
-  //  orElse: () => null
-   );
-  if (joz != null) {
-    return getAyahByPage(joz.pageNoSt);
+  QuranText? getAyahByPage(int pageNo) {
+    return quranTextList.firstWhere(
+      (ayah) => ayah.pageNo == pageNo,
+      orElse: () => null as QuranText, // اصلاح برای سازگاری با نوع بازگشتی
+    );
   }
-  return null;
-}
 
-// گرفتن لیست صفحات موجود
-List<int> getAllPages() {
-  return quranTextList.map((ayah) => ayah.pageNo).toSet().toList()..sort();
-}
+  QuranText? getFirstAyahOfJoz(int jozId) {
+    final joz = quranJozList.firstWhere(
+      (j) => j.id == jozId,
+      orElse: () => null as QuranJoz, // اصلاح برای سازگاری
+    );
+    if (joz != null) {
+      return getAyahByPage(joz.pageNoSt);
+    }
+    return null;
+  }
 
-// گرفتن لیست اجزاء
-List<QuranJoz> getAllJoz() {
-  return quranJozList;
-}
+  List<int> getAllPages() {
+    return quranTextList.map((ayah) => ayah.pageNo).toSet().toList()..sort();
+  }
 
-// گرفتن ایندکس سوره با توجه به شماره سوره (برای pageView)
-int getSuraIndexById(int suraId) {
-  return quranNameList.indexWhere((name) => name.id == suraId);
-}
+  List<QuranJoz> getAllJoz() {
+    return quranJozList;
+  }
 
+  int getSuraIndexById(int suraId) {
+    return quranNameList.indexWhere((name) => name.id == suraId);
+  }
 }

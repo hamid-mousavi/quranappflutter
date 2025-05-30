@@ -263,35 +263,35 @@ class SettingsPage extends StatelessWidget {
               const SizedBox(height: 16),
 
               // رنگ پس‌زمینه
-              // const Text('رنگ پس‌زمینه', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              // ListTile(
-              //   title: const Text('انتخاب رنگ پس‌زمینه'),
-              //   trailing: Container(
-              //     width: 24,
-              //     height: 24,
-              //     color: settings.backgroundColor,
-              //   ),
-              //   onTap: () {
-              //     showDialog(
-              //       context: context,
-              //       builder: (context) => AlertDialog(
-              //         title: const Text('انتخاب رنگ پس‌زمینه'),
-              //         content: SingleChildScrollView(
-              //           child: BlockPicker(
-              //             pickerColor: settings.backgroundColor,
-              //             onColorChanged: (color) => settings.updateBackgroundColor(color),
-              //           ),
-              //         ),
-              //         actions: [
-              //           TextButton(
-              //             onPressed: () => Navigator.pop(context),
-              //             child: const Text('تأیید'),
-              //           ),
-              //         ],
-              //       ),
-              //     );
-              //   },
-              // ),
+              const Text('رنگ پس‌زمینه', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              ListTile(
+                title: const Text('انتخاب رنگ پس‌زمینه'),
+                trailing: Container(
+                  width: 24,
+                  height: 24,
+                  color: settings.backgroundColor,
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('انتخاب رنگ پس‌زمینه'),
+                      content: SingleChildScrollView(
+                        child: BlockPicker(
+                          pickerColor: settings.backgroundColor,
+                          onColorChanged: (color) => settings.updateBackgroundColor(color),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('تأیید'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
              
              
               const SizedBox(height: 16),

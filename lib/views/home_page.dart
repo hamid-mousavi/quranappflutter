@@ -5,8 +5,33 @@ import 'package:quran/views/latest_page_screen.dart';
 import 'package:quran/views/sura_page.dart';
 import 'package:quran/views/widgets/sura_card.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+   final TextEditingController _searchController = TextEditingController();
+  int _selectedTabIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    final viewModel = Provider.of<QuranViewModel>(context, listen: false);
+    viewModel.filterSuras(_searchController.text);
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,22 +67,91 @@ class HomePage extends StatelessWidget {
           if (viewModel.quranNameList.isEmpty) {
             return const Center(child: CircularProgressIndicator());
           }
-          return ListView.builder(
-            itemCount: viewModel.quranNameList.length,
-            itemBuilder: (context, index) {
-              final sura = viewModel.quranNameList[index];
-              return SuraCard(
-                sura: sura,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SuraPage(suraId: sura.id),
+          return Column(
+            children: [
+               Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'جستجوی سوره...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+            ),
+          ),
+               // تب‌ها
+          Expanded(
+            child: DefaultTabController(
+              length: 3,
+              child: Column(
+                children: [
+                  TabBar(
+                    onTap: (index) {
+                      setState(() {
+                        _selectedTabIndex = index;
+                      });
+                      final viewModel = Provider.of<QuranViewModel>(context, listen: false);
+                      if (index == 2) {
+                        viewModel.filterFavorites();
+                      } else if (index == 1) {
+                        viewModel.filterByJuz();
+                      } else {
+                        viewModel.resetFilter();
+                      }
+                    },
+                    tabs: const [
+                      Tab(text: 'سوره'),
+                      Tab(text: 'جزء'),
+                      Tab(text: 'علاقه‌مندی‌ها'),
+                    ],
+                  ),
+                  Expanded(
+                    child: Consumer<QuranViewModel>(
+                      builder: (context, viewModel, child) {
+                        if (viewModel.errorMessage != null) {
+                          return Center(
+                            child: Text(
+                              viewModel.errorMessage!,
+                              style: const TextStyle(color: Colors.red),
+                            ),
+                          );
+                        }
+                        if (viewModel.quranNameList.isEmpty) {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                        return ListView.builder(
+                          itemCount: viewModel.quranNameList.length,
+                          itemBuilder: (context, index) {
+                            final sura = viewModel.quranNameList[index];
+                            return SuraCard(
+                              sura: sura,
+                              isFavorite: viewModel.isFavorite(sura.id),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SuraPage(suraId: sura.id),
+                                  ),
+                                );
+                              },
+                              onFavoriteTap: () {
+                                viewModel.toggleFavorite(sura.id);
+                              },
+                            );
+                          },
+                        );
+                      },
                     ),
-                  );
-                },
-              );
-            },
+                  ),
+                ],
+              ),
+            ),
+          ),
+         
+            ],
           );
         },
       ),

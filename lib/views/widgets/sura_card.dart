@@ -3,10 +3,17 @@ import 'package:quran/models/quran_name.dart';
 
 class SuraCard extends StatelessWidget {
   final QuranName sura;
+  final bool isFavorite;
   final VoidCallback onTap;
+  final VoidCallback onFavoriteTap;
 
-  const SuraCard({required this.sura, required this.onTap, Key? key})
-      : super(key: key);
+  const SuraCard({
+    Key? key,
+    required this.sura,
+    required this.isFavorite,
+    required this.onTap,
+    required this.onFavoriteTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +26,13 @@ class SuraCard extends StatelessWidget {
           textDirection: TextDirection.rtl,
         ),
         subtitle: Text('صفحه: ${sura.page}'),
+        trailing: IconButton(
+          icon: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite ? Colors.red : null,
+          ),
+          onPressed: onFavoriteTap,
+        ),
         onTap: onTap,
       ),
     );

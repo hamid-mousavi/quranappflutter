@@ -91,7 +91,7 @@ class DisplayMode extends StatelessWidget {
       );
     } else {
       return Text(
-        translation!.text,
+        translation.text,
         textAlign: settings.alignment ? TextAlign.justify : TextAlign.right,
         style: TextStyle(
           fontSize: settings.fontSize,

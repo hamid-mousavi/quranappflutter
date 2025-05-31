@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quran/function/convert_to_arabic.dart';
 import 'package:quran/models/quran_translation.dart';
 import 'package:quran/viewmodels/quran_view_model.dart';
 import 'package:quran/viewmodels/settings_view_model.dart';
@@ -20,8 +21,10 @@ class _SuraPageState extends State<SuraPage> {
   int _currentPage = 0;
   int _currentJoz = 0;
   late final PageController _pageController;
-  final Map<int, ItemScrollController> _scrollControllers = {}; // ذخیره کنترلر برای هر سوره
-  final Map<int, ItemPositionsListener> _positionsListeners = {}; // ذخیره listener برای هر سوره
+  final Map<int, ItemScrollController> _scrollControllers =
+      {}; // ذخیره کنترلر برای هر سوره
+  final Map<int, ItemPositionsListener> _positionsListeners =
+      {}; // ذخیره listener برای هر سوره
 
   @override
   void initState() {
@@ -48,7 +51,8 @@ class _SuraPageState extends State<SuraPage> {
     if (positions.isNotEmpty) {
       final firstVisibleIndex = positions
           .where((pos) => pos.itemLeadingEdge >= 0)
-          .reduce((min, pos) => pos.itemLeadingEdge < min.itemLeadingEdge ? pos : min)
+          .reduce((min, pos) =>
+              pos.itemLeadingEdge < min.itemLeadingEdge ? pos : min)
           .index;
       final ayah = viewModel.getAyahsBySura(suraId)[firstVisibleIndex];
       setState(() {
@@ -94,7 +98,11 @@ class _SuraPageState extends State<SuraPage> {
 
   void _showPagePicker(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context, listen: false);
-    final pages = viewModel.quranTextList.map((ayah) => ayah.pageNo).toSet().toList()..sort();
+    final pages = viewModel.quranTextList
+        .map((ayah) => ayah.pageNo)
+        .toSet()
+        .toList()
+      ..sort();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -110,21 +118,26 @@ class _SuraPageState extends State<SuraPage> {
               return GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
-                  final firstAyah = viewModel.quranTextList.firstWhere((ayah) => ayah.pageNo == page);
-                 print(firstAyah.aya);
+                  final firstAyah = viewModel.quranTextList
+                      .firstWhere((ayah) => ayah.pageNo == page);
+                  print(firstAyah.aya);
                   setState(() {
                     _currentSura = firstAyah.sura;
                     _currentPage = page;
                   });
-                  final suraIndex = viewModel.quranNameList.indexWhere((sura) => sura.id == firstAyah.sura);
+                  final suraIndex = viewModel.quranNameList
+                      .indexWhere((sura) => sura.id == firstAyah.sura);
                   _pageController.animateToPage(
                     suraIndex,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeOut,
                   );
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    final ayahIndex = viewModel.getAyahsBySura(firstAyah.sura).indexWhere((ayah) => ayah.pageNo == page);
-                    if (ayahIndex != -1 && _scrollControllers[firstAyah.sura] != null) {
+                    final ayahIndex = viewModel
+                        .getAyahsBySura(firstAyah.sura)
+                        .indexWhere((ayah) => ayah.pageNo == page);
+                    if (ayahIndex != -1 &&
+                        _scrollControllers[firstAyah.sura] != null) {
                       _scrollControllers[firstAyah.sura]!.scrollTo(
                         index: ayahIndex,
                         duration: const Duration(milliseconds: 500),
@@ -159,21 +172,26 @@ class _SuraPageState extends State<SuraPage> {
                 title: Text(joz.joz, textDirection: TextDirection.rtl),
                 onTap: () {
                   Navigator.pop(context);
-                  final firstAyah = viewModel.quranTextList.firstWhere((ayah) => ayah.joz == joz.id);
+                  final firstAyah = viewModel.quranTextList
+                      .firstWhere((ayah) => ayah.joz == joz.id);
                   setState(() {
                     _currentSura = firstAyah.sura;
                     _currentJoz = joz.id;
                   });
-                  final suraIndex = viewModel.quranNameList.indexWhere((s) => s.id == firstAyah.sura);
+                  final suraIndex = viewModel.quranNameList
+                      .indexWhere((s) => s.id == firstAyah.sura);
                   _pageController.animateToPage(
                     suraIndex,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOut,
                   );
                   WidgetsBinding.instance.addPostFrameCallback((_) {
-                    final ayahsInSura = viewModel.getAyahsBySura(firstAyah.sura);
-                    final ayahIndex = ayahsInSura.indexWhere((ayah) => ayah.joz == joz.id && ayah.index == firstAyah.index);
-                    if (ayahIndex != -1 && _scrollControllers[firstAyah.sura] != null) {
+                    final ayahsInSura =
+                        viewModel.getAyahsBySura(firstAyah.sura);
+                    final ayahIndex = ayahsInSura.indexWhere((ayah) =>
+                        ayah.joz == joz.id && ayah.index == firstAyah.index);
+                    if (ayahIndex != -1 &&
+                        _scrollControllers[firstAyah.sura] != null) {
                       _scrollControllers[firstAyah.sura]!.scrollTo(
                         index: ayahIndex,
                         duration: const Duration(milliseconds: 500),
@@ -194,28 +212,41 @@ class _SuraPageState extends State<SuraPage> {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context);
     final setting = Provider.of<SettingsViewModel>(context);
-    final suraName = viewModel.quranNameList.firstWhere((sura) => sura.id == _currentSura).sura;
+    final suraName = viewModel.quranNameList
+        .firstWhere((sura) => sura.id == _currentSura)
+        .sura;
 
     return Scaffold(
       // backgroundColor: setting.backgroundColor,
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () => _showSuraPicker(context),
-              child: Text('سوره: $suraName', style: const TextStyle(fontSize: 14)),
-            ),
-            GestureDetector(
-              onTap: () => _showPagePicker(context),
-              child: Text('صفحه: $_currentPage', style: const TextStyle(fontSize: 14)),
-            ),
-            GestureDetector(
-              onTap: () => _showJozPicker(context),
-              child: Text('جزء: $_currentJoz', style: const TextStyle(fontSize: 14)),
-            ),
-          ],
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.pushNamed(context, '/settings'); // رفتن به صفحه تنظیمات
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.keyboard_double_arrow_down),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.fullscreen),
+            onPressed: () {},
+          ),
+        ],
+        // title: const Text(
+        //   'قرآن الکریم',
+        //   textAlign: TextAlign.right,
+        //   style: TextStyle(
+        //     fontFamily: 'vazirmatn',
+        //     fontSize: 16,
+        //   ),
+        // ),
       ),
       body: PageView.builder(
         controller: _pageController,
@@ -233,40 +264,82 @@ class _SuraPageState extends State<SuraPage> {
           // استفاده از کنترلر و listener مربوط به سوره
           final scrollController = _scrollControllers[sura.id]!;
           final positionsListener = _positionsListeners[sura.id]!;
-          positionsListener.itemPositions.addListener(() => _updateCurrentInfo(sura.id, positionsListener));
+          positionsListener.itemPositions.addListener(
+              () => _updateCurrentInfo(sura.id, positionsListener));
 
           return Transform(
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.001)
               ..rotateY(0.0),
             alignment: Alignment.center,
-            child: Container(
-              // color: setting.backgroundColor,
-              child: ScrollablePositionedList.builder(
-                itemScrollController: scrollController,
-                itemPositionsListener: positionsListener,
-                itemCount: ayahs.length,
-                itemBuilder: (context, index) {
-                  final ayah = ayahs[index];
-                  final translation = translations.firstWhere(
-                    (trans) => trans.aya == ayah.aya,
-                    orElse: () => QuranTranslation(index: 0, sura: 0, aya: 0, text: ''),
-                  );
-                  return GestureDetector(
-                    onTap: () {
-                      scrollController.scrollTo(
-                        index: index,
-                        duration: const Duration(milliseconds: 500),
-                        curve: Curves.easeOut,
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.only(top: 4, bottom: 4),
+                  // padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  color: Color(0xFF1E5E3A),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                        onTap: () => _showSuraPicker(context),
+                        child: Text('سوره  $suraName',
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontFamily: 'vazirmatn')),
+                      ),
+                      GestureDetector(
+                        onTap: () => _showPagePicker(context),
+                        child: Text(
+                            'صفحه  ${convertToArabicNumber(_currentPage)}',
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontFamily: 'vazirmatn')),
+                      ),
+                      GestureDetector(
+                        onTap: () => _showJozPicker(context),
+                        child: Text(
+                            'جزء  ${convertToArabicNumber(_currentJoz)}',
+                            style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontFamily: 'vazirmatn')),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: ScrollablePositionedList.builder(
+                    itemScrollController: scrollController,
+                    itemPositionsListener: positionsListener,
+                    itemCount: ayahs.length,
+                    itemBuilder: (context, index) {
+                      final ayah = ayahs[index];
+                      final translation = translations.firstWhere(
+                        (trans) => trans.aya == ayah.aya,
+                        orElse: () => QuranTranslation(
+                            index: 0, sura: 0, aya: 0, text: ''),
+                      );
+                      return GestureDetector(
+                        onTap: () {
+                          scrollController.scrollTo(
+                            index: index,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeOut,
+                          );
+                        },
+                        child: AyahWidget(
+                          ayah: ayah,
+                          translation:
+                              translation.text.isNotEmpty ? translation : null,
+                        ),
                       );
                     },
-                    child: AyahWidget(
-                      ayah: ayah,
-                      translation: translation.text.isNotEmpty ? translation : null,
-                    ),
-                  );
-                },
-              ),
+                  ),
+                ),
+              ],
             ),
           );
         },

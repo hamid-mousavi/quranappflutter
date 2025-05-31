@@ -8,6 +8,7 @@ import 'package:quran/views/home_page.dart';
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -31,22 +32,45 @@ class MyApp extends StatelessWidget {
       child: Consumer<SettingsViewModel>(
         builder: (context, settings, _) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Quran App',
             themeMode: settings.themeMode,
             theme: ThemeData(
               brightness: Brightness.light,
               primarySwatch: Colors.green,
-              
               scaffoldBackgroundColor: Colors.white,
+              appBarTheme: const AppBarTheme(
+                actionsIconTheme: IconThemeData(
+                  color: Colors.white, // رنگ آیکون‌های نوار ابزار
+                ),
+                backgroundColor: Color(0xFF1E5E3A), // سبز مذهبی
+                titleTextStyle: TextStyle(
+                  fontFamily: 'vazirmatn', // فونت فارسی
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+              cardTheme: CardTheme(
+                color: Colors.grey.shade200, // رنگ پس‌زمینه Card در حالت روشن
+              ),
               textTheme: const TextTheme(
-                bodyLarge: TextStyle(color: Colors.black),
+                bodyLarge: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'amiriquran', // فونت عربی
+                ),
+                bodyMedium: TextStyle(
+                  color: Colors.black54,
+                  fontFamily: 'amiriquran', // فونت عربی
+                ),
               ),
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
               scaffoldBackgroundColor: const Color(0xFF121212),
               primaryColor: Colors.green,
-              
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Color(0xFF1E5E3A), // سبز مذهبی در تم تیره
+              ),
               textTheme: const TextTheme(
                 bodyLarge: TextStyle(color: Colors.white),
               ),

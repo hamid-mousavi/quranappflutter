@@ -44,6 +44,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/images/
     - assets/json/quran_text.json
     - assets/json/latest_page.json
     - assets/json/fa_makarem.json

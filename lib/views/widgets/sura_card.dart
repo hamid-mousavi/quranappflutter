@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quran/function/convert_to_arabic.dart';
 import 'package:quran/models/quran_name.dart';
 
 class SuraCard extends StatelessWidget {
@@ -20,12 +21,45 @@ class SuraCard extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ListTile(
+        leading: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              convertToArabicNumber(sura.id),
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
+              ),
+              textDirection: TextDirection.rtl,
+            ),
+            const SizedBox(width: 8),
+            CircleAvatar(
+              radius: 12, // اندازه تصویر دایره‌ای
+              backgroundImage: AssetImage(
+                sura.revelationType == "Meccan"
+                    ? 'assets/images/mecca.png'
+                    : 'assets/images/medina.png',
+              ),
+            ),
+            const SizedBox(width: 8),
+          ],
+        ),
         title: Text(
           sura.sura,
-          style: const TextStyle(fontSize: 18, fontFamily: 'Amiri'),
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
+          ),
           textDirection: TextDirection.rtl,
         ),
-        subtitle: Text('صفحه: ${sura.page}'),
+        // subtitle: Text(
+        //   'صفحه: ${sura.page != null ? convertToArabicNumber(sura.page) : "نامشخص"}',
+        //   style: TextStyle(
+        //     fontSize: 16,
+        //     fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
+        //   ),
+        //   textDirection: TextDirection.rtl,
+        // ),
         trailing: IconButton(
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,

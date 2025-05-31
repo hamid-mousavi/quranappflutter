@@ -2,571 +2,685 @@
   {
     "id": 1,
     "sura": "فاتحه",
-    "page": 1
+    "page": 1,
+    "revelationType": "Meccan"
   },
   {
     "id": 2,
     "sura": "بقره",
-    "page": 2
+    "page": 2,
+    "revelationType": "Medinan"
   },
   {
     "id": 3,
     "sura": "آل عمران",
-    "page": 50
+    "page": 50,
+    "revelationType": "Medinan"
   },
   {
     "id": 4,
     "sura": "نساء",
-    "page": null
+    "page": 77,
+    "revelationType": "Medinan"
   },
   {
     "id": 5,
     "sura": "مائده",
-    "page": 106
+    "page": 106,
+    "revelationType": "Medinan"
   },
   {
     "id": 6,
     "sura": "انعام",
-    "page": 128
+    "page": 128,
+    "revelationType": "Meccan"
   },
   {
     "id": 7,
     "sura": "اعراف",
-    "page": 151
+    "page": 151,
+    "revelationType": "Meccan"
   },
   {
     "id": 8,
     "sura": "انفال",
-    "page": 177
+    "page": 177,
+    "revelationType": "Medinan"
   },
   {
     "id": 9,
     "sura": "توبه",
-    "page": 187
+    "page": 187,
+    "revelationType": "Medinan"
   },
   {
     "id": 10,
     "sura": "یونس",
-    "page": 208
+    "page": 208,
+    "revelationType": "Meccan"
   },
   {
     "id": 11,
     "sura": "هود",
-    "page": 221
+    "page": 221,
+    "revelationType": "Meccan"
   },
   {
     "id": 12,
     "sura": "یوسف",
-    "page": 235
+    "page": 235,
+    "revelationType": "Meccan"
   },
   {
     "id": 13,
     "sura": "رعد",
-    "page": 249
+    "page": 249,
+    "revelationType": "Meccan"
   },
   {
     "id": 14,
     "sura": "ابراهیم",
-    "page": 255
+    "page": 255,
+    "revelationType": "Meccan"
   },
   {
     "id": 15,
     "sura": "حجر",
-    "page": 262
+    "page": 262,
+    "revelationType": "Meccan"
   },
   {
     "id": 16,
     "sura": "نحل",
-    "page": 267
+    "page": 267,
+    "revelationType": "Meccan"
   },
   {
     "id": 17,
     "sura": "اسراء",
-    "page": 282
+    "page": 282,
+    "revelationType": "Meccan"
   },
   {
     "id": 18,
     "sura": "کهف",
-    "page": 293
+    "page": 293,
+    "revelationType": "Meccan"
   },
   {
     "id": 19,
     "sura": "مریم",
-    "page": 305
+    "page": 305,
+    "revelationType": "Meccan"
   },
   {
     "id": 20,
     "sura": "طه",
-    "page": 312
+    "page": 312,
+    "revelationType": "Meccan"
   },
   {
     "id": 21,
     "sura": "انبیاء",
-    "page": 322
+    "page": 322,
+    "revelationType": "Meccan"
   },
   {
     "id": 22,
     "sura": "حج",
-    "page": 332
+    "page": 332,
+    "revelationType": "Medinan"
   },
   {
     "id": 23,
     "sura": "مومنون",
-    "page": 342
+    "page": 342,
+    "revelationType": "Meccan"
   },
   {
     "id": 24,
     "sura": "نور",
-    "page": 350
+    "page": 350,
+    "revelationType": "Medinan"
   },
   {
     "id": 25,
     "sura": "فرقان",
-    "page": 359
+    "page": 359,
+    "revelationType": "Meccan"
   },
   {
     "id": 26,
     "sura": "شعراء",
-    "page": 367
+    "page": 367,
+    "revelationType": "Meccan"
   },
   {
     "id": 27,
     "sura": "نمل",
-    "page": 377
+    "page": 377,
+    "revelationType": "Meccan"
   },
   {
     "id": 28,
     "sura": "قصص",
-    "page": 385
+    "page": 385,
+    "revelationType": "Meccan"
   },
   {
     "id": 29,
     "sura": "عنکبوت",
-    "page": 396
+    "page": 396,
+    "revelationType": "Meccan"
   },
   {
     "id": 30,
     "sura": "روم",
-    "page": 404
+    "page": 404,
+    "revelationType": "Meccan"
   },
   {
     "id": 31,
     "sura": "لقمان",
-    "page": 411
+    "page": 411,
+    "revelationType": "Meccan"
   },
   {
     "id": 32,
     "sura": "سجده",
-    "page": 415
+    "page": 415,
+    "revelationType": "Meccan"
   },
   {
     "id": 33,
     "sura": "احزاب",
-    "page": 418
+    "page": 418,
+    "revelationType": "Medinan"
   },
   {
     "id": 34,
     "sura": "سبا",
-    "page": 428
+    "page": 428,
+    "revelationType": "Meccan"
   },
   {
     "id": 35,
     "sura": "فاطر",
-    "page": 434
+    "page": 434,
+    "revelationType": "Meccan"
   },
   {
     "id": 36,
     "sura": "یس",
-    "page": 440
+    "page": 440,
+    "revelationType": "Meccan"
   },
   {
     "id": 37,
     "sura": "صافات",
-    "page": 446
+    "page": 446,
+    "revelationType": "Meccan"
   },
   {
     "id": 38,
     "sura": "ص",
-    "page": 453
+    "page": 453,
+    "revelationType": "Meccan"
   },
   {
     "id": 39,
     "sura": "زمر",
-    "page": 458
+    "page": 458,
+    "revelationType": "Meccan"
   },
   {
     "id": 40,
     "sura": "غافر",
-    "page": 467
+    "page": 467,
+    "revelationType": "Meccan"
   },
   {
     "id": 41,
     "sura": "فصلت",
-    "page": 477
+    "page": 477,
+    "revelationType": "Meccan"
   },
   {
     "id": 42,
     "sura": "شوری",
-    "page": 483
+    "page": 483,
+    "revelationType": "Meccan"
   },
   {
     "id": 43,
     "sura": "زخرف",
-    "page": 489
+    "page": 489,
+    "revelationType": "Meccan"
   },
   {
     "id": 44,
     "sura": "دخان",
-    "page": 496
+    "page": 496,
+    "revelationType": "Meccan"
   },
   {
     "id": 45,
     "sura": "جاثیه",
-    "page": 499
+    "page": 499,
+    "revelationType": "Meccan"
   },
   {
     "id": 46,
     "sura": "احقاف",
-    "page": 502
+    "page": 502,
+    "revelationType": "Meccan"
   },
   {
     "id": 47,
     "sura": "محمد",
-    "page": 507
+    "page": 507,
+    "revelationType": "Medinan"
   },
   {
     "id": 48,
     "sura": "فتح",
-    "page": 511
+    "page": 511,
+    "revelationType": "Medinan"
   },
   {
     "id": 49,
     "sura": "حجرات",
-    "page": 515
+    "page": 515,
+    "revelationType": "Medinan"
   },
   {
     "id": 50,
     "sura": "ق",
-    "page": 518
+    "page": 518,
+    "revelationType": "Meccan"
   },
   {
     "id": 51,
     "sura": "ذاریات",
-    "page": 520
+    "page": 520,
+    "revelationType": "Meccan"
   },
   {
     "id": 52,
     "sura": "طور",
-    "page": 523
+    "page": 523,
+    "revelationType": "Meccan"
   },
   {
     "id": 53,
     "sura": "نجم",
-    "page": 526
+    "page": 526,
+    "revelationType": "Meccan"
   },
   {
     "id": 54,
     "sura": "قمر",
-    "page": 528
+    "page": 528,
+    "revelationType": "Meccan"
   },
   {
     "id": 55,
     "sura": "الرحمن",
-    "page": 531
+    "page": 531,
+    "revelationType": "Meccan"
   },
   {
     "id": 56,
     "sura": "واقعه",
-    "page": 534
+    "page": 534,
+    "revelationType": "Meccan"
   },
   {
     "id": 57,
     "sura": "حدید",
-    "page": 537
+    "page": 537,
+    "revelationType": "Medinan"
   },
   {
     "id": 58,
     "sura": "مجادله",
-    "page": 542
+    "page": 542,
+    "revelationType": "Medinan"
   },
   {
     "id": 59,
     "sura": "حشر",
-    "page": 545
+    "page": 545,
+    "revelationType": "Medinan"
   },
   {
     "id": 60,
     "sura": "ممتحنه",
-    "page": 549
+    "page": 549,
+    "revelationType": "Medinan"
   },
   {
     "id": 61,
     "sura": "صف",
-    "page": 551
+    "page": 551,
+    "revelationType": "Medinan"
   },
   {
     "id": 62,
     "sura": "جمعه",
-    "page": 553
+    "page": 553,
+    "revelationType": "Medinan"
   },
   {
     "id": 63,
     "sura": "منافقون",
-    "page": 554
+    "page": 554,
+    "revelationType": "Medinan"
   },
   {
     "id": 64,
     "sura": "تغابن",
-    "page": 556
+    "page": 556,
+    "revelationType": "Medinan"
   },
   {
     "id": 65,
     "sura": "طلاق",
-    "page": 558
+    "page": 558,
+    "revelationType": "Medinan"
   },
   {
     "id": 66,
     "sura": "تحریم",
-    "page": 560
+    "page": 560,
+    "revelationType": "Medinan"
   },
   {
     "id": 67,
     "sura": "ملک",
-    "page": 562
+    "page": 562,
+    "revelationType": "Meccan"
   },
   {
     "id": 68,
     "sura": "قلم",
-    "page": 564
+    "page": 564,
+    "revelationType": "Meccan"
   },
   {
     "id": 69,
     "sura": "حاقه",
-    "page": 566
+    "page": 566,
+    "revelationType": "Meccan"
   },
   {
     "id": 70,
     "sura": "معارج",
-    "page": 568
+    "page": 568,
+    "revelationType": "Meccan"
   },
   {
     "id": 71,
     "sura": "نوح",
-    "page": 570
+    "page": 570,
+    "revelationType": "Meccan"
   },
   {
     "id": 72,
     "sura": "جن",
-    "page": 571
+    "page": 571,
+    "revelationType": "Meccan"
   },
   {
     "id": 73,
     "sura": "مزمل",
-    "page": 574
+    "page": 574,
+    "revelationType": "Meccan"
   },
   {
     "id": 74,
     "sura": "مدثر",
-    "page": 575
+    "page": 575,
+    "revelationType": "Meccan"
   },
   {
     "id": 75,
     "sura": "قیامه",
-    "page": 577
+    "page": 577,
+    "revelationType": "Meccan"
   },
   {
     "id": 76,
     "sura": "انسان",
-    "page": 578
+    "page": 578,
+    "revelationType": "Meccan"
   },
   {
     "id": 77,
     "sura": "مرسلات",
-    "page": 580
+    "page": 580,
+    "revelationType": "Meccan"
   },
   {
     "id": 78,
     "sura": "نبا",
-    "page": 582
+    "page": 582,
+    "revelationType": "Meccan"
   },
   {
     "id": 79,
     "sura": "نازعات",
-    "page": 583
+    "page": 583,
+    "revelationType": "Meccan"
   },
   {
     "id": 80,
     "sura": "عبس",
-    "page": 585
+    "page": 585,
+    "revelationType": "Meccan"
   },
   {
     "id": 81,
     "sura": "تکویر",
-    "page": 586
+    "page": 586,
+    "revelationType": "Meccan"
   },
   {
     "id": 82,
     "sura": "انفطار",
-    "page": 587
+    "page": 587,
+    "revelationType": "Meccan"
   },
   {
     "id": 83,
     "sura": "مطففین",
-    "page": 587
+    "page": 587,
+    "revelationType": "Meccan"
   },
   {
     "id": 84,
     "sura": "انشقاق",
-    "page": 589
+    "page": 589,
+    "revelationType": "Meccan"
   },
   {
     "id": 85,
     "sura": "بروج",
-    "page": 590
+    "page": 590,
+    "revelationType": "Meccan"
   },
   {
     "id": 86,
     "sura": "طارق",
-    "page": 591
+    "page": 591,
+    "revelationType": "Meccan"
   },
   {
     "id": 87,
     "sura": "اعلی",
-    "page": 591
+    "page": 591,
+    "revelationType": "Meccan"
   },
   {
     "id": 88,
     "sura": "غاشیه",
-    "page": 592
+    "page": 592,
+    "revelationType": "Meccan"
   },
   {
     "id": 89,
     "sura": "فجر",
-    "page": 593
+    "page": 593,
+    "revelationType": "Meccan"
   },
   {
     "id": 90,
     "sura": "بلد",
-    "page": 594
+    "page": 594,
+    "revelationType": "Meccan"
   },
   {
     "id": 91,
     "sura": "شمس",
-    "page": 595
+    "page": 595,
+    "revelationType": "Meccan"
   },
   {
     "id": 92,
     "sura": "لیل",
-    "page": 595
+    "page": 595,
+    "revelationType": "Meccan"
   },
   {
     "id": 93,
     "sura": "ضحی",
-    "page": 596
+    "page": 596,
+    "revelationType": "Meccan"
   },
   {
     "id": 94,
     "sura": "شرح",
-    "page": 596
+    "page": 596,
+    "revelationType": "Meccan"
   },
   {
     "id": 95,
     "sura": "تین",
-    "page": 597
+    "page": 597,
+    "revelationType": "Meccan"
   },
   {
     "id": 96,
     "sura": "علق",
-    "page": 597
+    "page": 597,
+    "revelationType": "Meccan"
   },
   {
     "id": 97,
     "sura": "قدر",
-    "page": 598
+    "page": 598,
+    "revelationType": "Meccan"
   },
   {
     "id": 98,
     "sura": "بینه",
-    "page": 598
+    "page": 598,
+    "revelationType": "Meccan"
   },
   {
     "id": 99,
     "sura": "زلزله",
-    "page": 599
+    "page": 599,
+    "revelationType": "Meccan"
   },
   {
     "id": 100,
     "sura": "عادیات",
-    "page": 599
+    "page": 599,
+    "revelationType": "Meccan"
   },
   {
     "id": 101,
     "sura": "قارعه",
-    "page": 600
+    "page": 600,
+    "revelationType": "Meccan"
   },
   {
     "id": 102,
     "sura": "تکاثر",
-    "page": 600
+    "page": 600,
+    "revelationType": "Meccan"
   },
   {
     "id": 103,
     "sura": "عصر",
-    "page": 601
+    "page": 601,
+    "revelationType": "Meccan"
   },
   {
     "id": 104,
     "sura": "همزه",
-    "page": 601
+    "page": 601,
+    "revelationType": "Meccan"
   },
   {
     "id": 105,
     "sura": "فیل",
-    "page": 601
+    "page": 601,
+    "revelationType": "Meccan"
   },
   {
     "id": 106,
     "sura": "قریش",
-    "page": 602
+    "page": 602,
+    "revelationType": "Meccan"
   },
   {
     "id": 107,
     "sura": "ماعون",
-    "page": 602
+    "page": 602,
+    "revelationType": "Meccan"
   },
   {
     "id": 108,
     "sura": "کوثر",
-    "page": 602
+    "page": 602,
+    "revelationType": "Meccan"
   },
   {
     "id": 109,
     "sura": "کافرون",
-    "page": 603
+    "page": 603,
+    "revelationType": "Meccan"
   },
   {
     "id": 110,
     "sura": "نصر",
-    "page": 603
+    "page": 603,
+    "revelationType": "Meccan"
   },
   {
     "id": 111,
     "sura": "مسد",
-    "page": 603
+    "page": 603,
+    "revelationType": "Meccan"
   },
   {
     "id": 112,
     "sura": "اخلاص",
-    "page": 604
+    "page": 604,
+    "revelationType": "Meccan"
   },
   {
     "id": 113,
     "sura": "فلق",
-    "page": 604
+    "page": 604,
+    "revelationType": "Meccan"
   },
   {
     "id": 114,
     "sura": "ناس",
-    "page": 604
+    "page": 604,
+    "revelationType": "Meccan"
   }
 ]

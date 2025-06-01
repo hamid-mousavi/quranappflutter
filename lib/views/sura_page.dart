@@ -11,14 +11,227 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
-// نگاشت قاری‌ها (بدون تغییر نسبت به نسخه قبلی)
+// نگاشت قاری‌ها به نام‌های فارسی و تصاویر
 final Map<String, Map<String, String>> _reciterInfo = {
-  // ... (همان داده‌های قبلی)
+  'ar.ahmedajamy': {
+    'name': 'احمد العجمي',
+    'image': 'https://example.com/images/ahmedajamy.jpg'
+  },
+  'ar.alafasy': {
+    'name': 'مشاري العفاسي',
+    'image': 'https://example.com/images/alafasy.jpg'
+  },
+  'ar.alafasy-2': {
+    'name': 'مشاري العفاسي (۲)',
+    'image': 'https://example.com/images/alafasy.jpg'
+  },
+  'ar.hudhaify': {
+    'name': 'علي الحذيفي',
+    'image': 'https://example.com/images/hudhaify.jpg'
+  },
+  'ar.hudhaify-2': {
+    'name': 'علي الحذيفي (۲)',
+    'image': 'https://example.com/images/hudhaify.jpg'
+  },
+  'ar.husary': {
+    'name': 'محمود خليل الحصري',
+    'image': 'https://example.com/images/husary.jpg'
+  },
+  'ar.husary-2': {
+    'name': 'محمود خليل الحصري (۲)',
+    'image': 'https://example.com/images/husary.jpg'
+  },
+  'ar.husarymujawwad': {
+    'name': 'الحصري (مجود)',
+    'image': 'https://example.com/images/husary.jpg'
+  },
+  'ar.husarymujawwad-2': {
+    'name': 'الحصري (مجود) (۲)',
+    'image': 'https://example.com/images/husary.jpg'
+  },
+  'ar.mahermuaiqly': {
+    'name': 'ماهر المعيقلي',
+    'image': 'https://example.com/images/mahermuaiqly.jpg'
+  },
+  'ar.mahermuaiqly-2': {
+    'name': 'ماهر المعيقلي (۲)',
+    'image': 'https://example.com/images/mahermuaiqly.jpg'
+  },
+  'ar.minshawi': {
+    'name': 'محمد صديق المنشاوي',
+    'image': 'https://example.com/images/minshawi.jpg'
+  },
+  'ar.minshawi-2': {
+    'name': 'محمد صديق المنشاوي (۲)',
+    'image': 'https://example.com/images/minshawi.jpg'
+  },
+  'ar.muhammadayyoub': {
+    'name': 'محمد أيوب',
+    'image': 'https://example.com/images/muhammadayyoub.jpg'
+  },
+  'ar.muhammadayyoub-2': {
+    'name': 'محمد أيوب (۲)',
+    'image': 'https://example.com/images/muhammadayyoub.jpg'
+  },
+  'ar.muhammadjibreel': {
+    'name': 'محمد جبريل',
+    'image': 'https://example.com/images/muhammadjibreel.jpg'
+  },
+  'ar.muhammadjibreel-2': {
+    'name': 'محمد جبريل (۲)',
+    'image': 'https://example.com/images/muhammadjibreel.jpg'
+  },
+  'ar.shaatree': {
+    'name': 'أبو بكر الشاطري',
+    'image': 'https://example.com/images/shaatree.jpg'
+  },
+  'ar.shaatree-2': {
+    'name': 'أبو بكر الشاطري (۲)',
+    'image': 'https://example.com/images/shaatree.jpg'
+  },
+  'fr.leclerc': {
+    'name': 'لكليرك (فرانسوی)',
+    'image': 'https://example.com/images/leclerc.jpg'
+  },
+  'ru.kuliev-audio': {
+    'name': 'کولیف (روسی)',
+    'image': 'https://example.com/images/kuliev.jpg'
+  },
+  'zh.chinese': {
+    'name': 'چینی',
+    'image': 'https://example.com/images/chinese.jpg'
+  },
+  'ar.abdulbasitmurattal': {
+    'name': 'عبدالباسط عبدالصمد',
+    'image': 'https://example.com/images/abdulbasit.jpg'
+  },
+  'ar.abdulbasitmurattal-2': {
+    'name': 'عبدالباسط عبدالصمد (۲)',
+    'image': 'https://example.com/images/abdulbasit.jpg'
+  },
+  'ar.abdullahbasfar': {
+    'name': 'عبدالله بصفر',
+    'image': 'https://example.com/images/abdullahbasfar.jpg'
+  },
+  'ar.abdullahbasfar-2': {
+    'name': 'عبدالله بصفر (۲)',
+    'image': 'https://example.com/images/abdullahbasfar.jpg'
+  },
+  'ar.abdurrahmaansudais': {
+    'name': 'عبدالرحمن السديس',
+    'image': 'https://example.com/images/sudais.jpg'
+  },
+  'ar.abdurrahmaansudais-2': {
+    'name': 'عبدالرحمن السديس (۲)',
+    'image': 'https://example.com/images/sudais.jpg'
+  },
+  'ar.hanirifai': {
+    'name': 'هاني الرفاعي',
+    'image': 'https://example.com/images/hanirifai.jpg'
+  },
+  'ar.hanirifai-2': {
+    'name': 'هاني الرفاعي (۲)',
+    'image': 'https://example.com/images/hanirifai.jpg'
+  },
+  'en.walk': {
+    'name': 'واک (انگلیسی)',
+    'image': 'https://example.com/images/walk.jpg'
+  },
+  'ar.ibrahimakhbar': {
+    'name': 'إبراهيم الأخضر',
+    'image': 'https://example.com/images/ibrahimakhbar.jpg'
+  },
+  'ru.kuliev-audio-2': {
+    'name': 'کولیف (روسی) (۲)',
+    'image': 'https://example.com/images/kuliev.jpg'
+  },
+  'fa.hedayatfarfooladvand': {
+    'name': 'هدایت‌فر فولادوند',
+    'image': 'https://example.com/images/hedayatfar.jpg'
+  },
+  'ar.parhizgar': {
+    'name': 'پرهیزگار',
+    'image': 'https://example.com/images/parhizgar.jpg'
+  },
+  'ar.abdulsamad': {
+    'name': 'عبدالصمد',
+    'image': 'https://example.com/images/abdulsamad.jpg'
+  },
+  'ar.aymanswoaid': {
+    'name': 'أيمن سويد',
+    'image': 'https://example.com/images/aymanswoaid.jpg'
+  },
+  'ar.aymanswoaid-2': {
+    'name': 'أيمن سويد (۲)',
+    'image': 'https://example.com/images/aymanswoaid.jpg'
+  },
+  'ar.minshawimujawwad': {
+    'name': 'المنشاوي (مجود)',
+    'image': 'https://example.com/images/minshawi.jpg'
+  },
+  'ar.minshawimujawwad-2': {
+    'name': 'المنشاوي (مجود) (۲)',
+    'image': 'https://example.com/images/minshawi.jpg'
+  },
+  'ar.saoodshuraym': {
+    'name': 'سعود الشريم',
+    'image': 'https://example.com/images/saoodshuraym.jpg'
+  },
+  'ar.saoodshuraym-2': {
+    'name': 'سعود الشريم (۲)',
+    'image': 'https://example.com/images/saoodshuraym.jpg'
+  },
+  'ur.khan': {
+    'name': 'خان (اردو)',
+    'image': 'https://example.com/images/khan.jpg'
+  },
 };
 
-// تعریف ساختار قاری‌ها و کیفیت‌ها (بدون تغییر)
+// تعریف ساختار قاری‌ها و کیفیت‌های موجود
 final Map<String, List<String>> _reciterBitrates = {
-  // ... (همان داده‌های قبلی)
+  'ar.ahmedajamy': ['128', '64'],
+  'ar.alafasy': ['128', '64'],
+  'ar.alafasy-2': ['128', '64'],
+  'ar.hudhaify': ['128', '32', '64'],
+  'ar.hudhaify-2': ['128', '32', '64'],
+  'ar.husary': ['128', '64'],
+  'ar.husary-2': ['128', '64'],
+  'ar.husarymujawwad': ['128', '64'],
+  'ar.husarymujawwad-2': ['128', '64'],
+  'ar.mahermuaiqly': ['128', '64'],
+  'ar.mahermuaiqly-2': ['128', '64'],
+  'ar.minshawi': ['128'],
+  'ar.minshawi-2': ['128'],
+  'ar.muhammadayyoub': ['128'],
+  'ar.muhammadayyoub-2': ['128'],
+  'ar.muhammadjibreel': ['128'],
+  'ar.muhammadjibreel-2': ['128'],
+  'ar.shaatree': ['128', '64'],
+  'ar.shaatree-2': ['128', '64'],
+  'fr.leclerc': ['128'],
+  'ru.kuliev-audio': ['128'],
+  'zh.chinese': ['128'],
+  'ar.abdulbasitmurattal': ['192', '64'],
+  'ar.abdulbasitmurattal-2': ['192', '64'],
+  'ar.abdullahbasfar': ['192', '32', '64'],
+  'ar.abdullahbasfar-2': ['192', '32', '64'],
+  'ar.abdurrahmaansudais': ['192', '64'],
+  'ar.abdurrahmaansudais-2': ['192', '64'],
+  'ar.hanirifai': ['192', '64'],
+  'ar.hanirifai-2': ['192', '64'],
+  'en.walk': ['192'],
+  'ar.ibrahimakhbar': ['32'],
+  'ru.kuliev-audio-2': ['320'],
+  'fa.hedayatfarfooladvand': ['40'],
+  'ar.parhizgar': ['48'],
+  'ar.abdulsamad': ['64'],
+  'ar.aymanswoaid': ['64'],
+  'ar.aymanswoaid-2': ['64'],
+  'ar.minshawimujawwad': ['64'],
+  'ar.minshawimujawwad-2': ['64'],
+  'ar.saoodshuraym': ['64'],
+  'ar.saoodshuraym-2': ['64'],
+  'ur.khan': ['64'],
 };
 
 class SuraPage extends StatefulWidget {

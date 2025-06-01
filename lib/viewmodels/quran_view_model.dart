@@ -14,11 +14,22 @@ class QuranViewModel extends ChangeNotifier {
   List<QuranName> quranNameList = [];
   List<QuranTranslation> quranTranslationList = [];
   String? errorMessage;
-  List<int> favoriteSuraIds = []; // لیست آیدی‌های سوره‌های علاقه‌مندی
-  List<QuranName> filteredSuraList = []; // لیست فیلترشده برای نمایش
+  List<int> favoriteSuraIds = [];
+  List<QuranName> filteredSuraList = [];
+  Map<int, List<QuranText>> matchingAyahs = {}; // آیات مطابق برای هر سوره
 
   QuranViewModel() {
-    filteredSuraList = quranNameList; // در ابتدا لیست کامل
+    filteredSuraList = quranNameList;
+  }
+
+  // تابع نرمال‌سازی متن عربی برای حذف اعراب و علائم خاص
+  String normalizeArabic(String text) {
+    final arabicDiacritics = RegExp(
+        r'[\u0610-\u061A\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E8\u06EA-\u06ED]');
+    return text
+        .replaceAll(arabicDiacritics, '')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
   }
 
   Future<void> loadData(BuildContext context) async {
@@ -28,36 +39,59 @@ class QuranViewModel extends ChangeNotifier {
       quranTextList = await _service.loadQuranText(context);
       quranNameList = await _service.loadQuranNames(context);
       quranTranslationList = await _service.loadQuranTranslations(context);
-      filteredSuraList = quranNameList; // مقداردهی اولیه لیست فیلترشده
+      filteredSuraList = quranNameList;
       errorMessage = null;
     } catch (e) {
       errorMessage = 'خطا در بارگذاری داده‌ها: $e';
+      print(errorMessage);
     }
     notifyListeners();
   }
 
-  // جستجوی سوره‌ها
   void filterSuras(String query) {
+    matchingAyahs.clear(); // پاک کردن آیات قبلی
     if (query.isEmpty) {
       filteredSuraList = quranNameList;
+      print('Query is empty, showing all suras: ${filteredSuraList.length}');
     } else {
-      filteredSuraList = quranNameList
-          .where((sura) =>
-              sura.sura.toLowerCase().contains(query.toLowerCase()) ||
-              sura.id.toString().contains(query))
-          .toList();
+      final normalizedQuery = normalizeArabic(query).toLowerCase();
+      final suraNameMatches = <QuranName>[]; // تطبیق نام سوره
+      final ayahContentMatches = <QuranName>[]; // تطبیق محتوای آیات
+      final matchingSuraIds = <int>{}; // برای جلوگیری از تکرار
+
+      // جستجو در نام سوره‌ها
+      for (var sura in quranNameList) {
+        final normalizedSuraName = normalizeArabic(sura.sura).toLowerCase();
+        if (normalizedSuraName.contains(normalizedQuery) ||
+            sura.id.toString().contains(query)) {
+          suraNameMatches.add(sura);
+          matchingSuraIds.add(sura.id);
+        }
+      }
+
+      // جستجو در محتوای آیات
+      for (var ayah in quranTextList) {
+        final normalizedAyahText = normalizeArabic(ayah.text).toLowerCase();
+        if (normalizedAyahText.contains(normalizedQuery)) {
+          if (!matchingSuraIds.contains(ayah.sura)) {
+            final sura = quranNameList.firstWhere((s) => s.id == ayah.sura);
+            ayahContentMatches.add(sura);
+            matchingSuraIds.add(ayah.sura);
+          }
+          matchingAyahs.putIfAbsent(ayah.sura, () => []).add(ayah);
+        }
+      }
+
+      // ترکیب لیست‌ها: ابتدا تطبیق نام، سپس تطبیق آیات
+      filteredSuraList = [...suraNameMatches, ...ayahContentMatches];
+
+      print(
+          'Query: "$query", Normalized: "$normalizedQuery", Found ${filteredSuraList.length} suras '
+          '(${suraNameMatches.length} name matches, ${ayahContentMatches.length} ayah matches)');
     }
     notifyListeners();
   }
 
-  // فیلتر بر اساس جزء
-  void filterByJuz() {
-    // برای سادگی، فرض می‌کنیم همه سوره‌ها نمایش داده شوند، اما می‌توانید منطق خاصی برای جزء اضافه کنید
-    filteredSuraList = quranNameList;
-    notifyListeners();
-  }
-
-  // فیلتر بر اساس علاقه‌مندی‌ها
   void filterFavorites() {
     filteredSuraList = quranNameList
         .where((sura) => favoriteSuraIds.contains(sura.id))
@@ -65,18 +99,16 @@ class QuranViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // بازگرداندن به حالت اولیه
   void resetFilter() {
     filteredSuraList = quranNameList;
+    matchingAyahs.clear();
     notifyListeners();
   }
 
-  // بررسی وضعیت علاقه‌مندی
   bool isFavorite(int suraId) {
     return favoriteSuraIds.contains(suraId);
   }
 
-  // تغییر وضعیت علاقه‌مندی
   void toggleFavorite(int suraId) {
     if (favoriteSuraIds.contains(suraId)) {
       favoriteSuraIds.remove(suraId);
@@ -95,21 +127,39 @@ class QuranViewModel extends ChangeNotifier {
   }
 
   QuranText? getAyahByPage(int pageNo) {
-    return quranTextList.firstWhere(
-      (ayah) => ayah.pageNo == pageNo,
-      orElse: () => null as QuranText, // اصلاح برای سازگاری با نوع بازگشتی
-    );
+    try {
+      final ayah = quranTextList.firstWhere(
+        (ayah) => ayah.pageNo == pageNo,
+        orElse: () => QuranText(
+            index: 0,
+            sura: 0,
+            aya: 0,
+            text: '',
+            pageNo: 0,
+            joz: 0,
+            textClean: ''),
+      );
+      return ayah.sura != 0 ? ayah : null;
+    } catch (e) {
+      print('Error in getAyahByPage: $e');
+      return null;
+    }
   }
 
   QuranText? getFirstAyahOfJoz(int jozId) {
-    final joz = quranJozList.firstWhere(
-      (j) => j.id == jozId,
-      orElse: () => null as QuranJoz, // اصلاح برای سازگاری
-    );
-    if (joz != null) {
-      return getAyahByPage(joz.pageNoSt);
+    try {
+      final joz = quranJozList.firstWhere(
+        (j) => j.id == jozId,
+        orElse: () => QuranJoz(id: 0, joz: '', pageNoSt: 0),
+      );
+      if (joz.id != 0) {
+        return getAyahByPage(joz.pageNoSt);
+      }
+      return null;
+    } catch (e) {
+      print('Error in getFirstAyahOfJoz: $e');
+      return null;
     }
-    return null;
   }
 
   List<int> getAllPages() {

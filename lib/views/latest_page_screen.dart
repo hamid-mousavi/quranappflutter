@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran/models/quran_translation.dart';
 import 'package:quran/viewmodels/quran_view_model.dart';
+import 'package:quran/viewmodels/settings_view_model.dart';
 import 'package:quran/views/widgets/ayah_widget.dart';
 
 class LatestPageScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class LatestPageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context);
+    final setting = Provider.of<SettingsViewModel>(context);
     if (viewModel.latestPageList.isEmpty) {
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
@@ -33,6 +35,7 @@ class LatestPageScreen extends StatelessWidget {
           return AyahWidget(
             ayah: ayah,
             translation: translation.text.isNotEmpty ? translation : null,
+            settings: setting,
           );
         },
       ),

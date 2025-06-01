@@ -56,11 +56,11 @@ class MyApp extends StatelessWidget {
               textTheme: const TextTheme(
                 bodyLarge: TextStyle(
                   color: Colors.black,
-                  fontFamily: 'amiriquran', // فونت عربی
+                  fontFamily: 'vazirmatn', // فونت عربی
                 ),
                 bodyMedium: TextStyle(
                   color: Colors.black54,
-                  fontFamily: 'amiriquran', // فونت عربی
+                  fontFamily: 'vazirmatn', // فونت عربی
                 ),
               ),
             ),

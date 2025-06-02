@@ -33,6 +33,7 @@ dependencies:
   flutter_colorpicker: ^1.1.0
   shared_preferences: ^2.5.3
   async: ^2.11.0
+  get_it: ^8.0.3
 
 dev_dependencies:
   flutter_test:
@@ -46,20 +47,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/json/quran_text.json
-    - assets/json/latest_page.json
-    - assets/json/fa_makarem.json
-    - assets/json/quranJOZ.json
-    - assets/json/quranNameList.json
-    - assets/json/en_shakir.json
-    - assets/json/fa_ansarian.json
-    - assets/json/fa_fooladvand.json
-    - assets/json/fa_ghomshei.json
-    - assets/json/fa_qaraati.json
-    - assets/json/tbl_qarian.json
-    - assets/json/tbl_setting.json
-    - assets/json/tbl_trans.json
-    - assets/json/tbl_trans_sound.json
+    - assets/json/
   fonts:
     - family: amiri
       fonts:
@@ -79,7 +67,9 @@ flutter:
     - family: UthmanicHafs
       fonts:
         - asset: assets/fonts/osman_taha/UthmanicHafs.otf
-
+    - family: Samim
+      fonts:
+        - asset: assets/fonts/Samim.ttf
 
 
 

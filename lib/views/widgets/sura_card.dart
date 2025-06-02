@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran/function/convert_to_arabic.dart';
 import 'package:quran/models/quran_name.dart';
+import 'package:quran/viewmodels/quran_view_model.dart';
 
 class SuraCard extends StatelessWidget {
   final QuranName sura;
@@ -18,6 +20,7 @@ class SuraCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<QuranViewModel>(context, listen: false);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: ListTile(
@@ -46,20 +49,21 @@ class SuraCard extends StatelessWidget {
         ),
         title: Text(
           sura.sura,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
+            fontFamily: 'amiri', // فونت فارسی
+            fontWeight: FontWeight.bold,
+          ),
+          textDirection: TextDirection.rtl,
+        ),
+        subtitle: Text(
+          convertToArabicNumber(viewModel.getAyahCountBySura(sura.id)) + ' آیه',
+          style: TextStyle(
+            fontSize: 12,
             fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
           ),
           textDirection: TextDirection.rtl,
         ),
-        // subtitle: Text(
-        //   'صفحه: ${sura.page != null ? convertToArabicNumber(sura.page) : "نامشخص"}',
-        //   style: TextStyle(
-        //     fontSize: 16,
-        //     fontFamily: Theme.of(context).textTheme.bodyLarge?.fontFamily,
-        //   ),
-        //   textDirection: TextDirection.rtl,
-        // ),
         trailing: IconButton(
           icon: Icon(
             isFavorite ? Icons.favorite : Icons.favorite_border,

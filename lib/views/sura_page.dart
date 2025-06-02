@@ -11,6 +11,14 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
+// توجه: این وابستگی‌ها باید در پروژه شما تعریف شوند
+// import 'package:quran/function/convert_to_arabic.dart';
+// import 'package:quran/models/quran_text.dart';
+// import 'package:quran/models/quran_translation.dart';
+// import 'package:quran/viewmodels/quran_view_model.dart';
+// import 'package:quran/viewmodels/settings_view_model.dart';
+// import 'package:quran/views/widgets/ayah_widget.dart';
+
 // نگاشت قاری‌ها به نام‌های فارسی و تصاویر
 final Map<String, Map<String, String>> _reciterInfo = {
   'ar.ahmedajamy': {
@@ -234,10 +242,11 @@ final Map<String, List<String>> _reciterBitrates = {
   'ur.khan': ['64'],
 };
 
+// ویجت اصلی برای نمایش صفحه سوره
 class SuraPage extends StatefulWidget {
   final int suraId;
   final int? initialJuz;
-  final int? initialAyah; // پارامتر جدید برای آیه خاص
+  final int? initialAyah;
 
   const SuraPage({
     required this.suraId,
@@ -250,6 +259,7 @@ class SuraPage extends StatefulWidget {
   _SuraPageState createState() => _SuraPageState();
 }
 
+// حالت ویجت SuraPage
 class _SuraPageState extends State<SuraPage> {
   int _currentSura = 0;
   int _currentPage = 0;
@@ -288,7 +298,6 @@ class _SuraPageState extends State<SuraPage> {
       _positionsListeners[sura.id] = ItemPositionsListener.create();
     }
 
-    // اسکرول به جزء یا آیه
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (widget.initialJuz != null) {
         final firstAyah = viewModel.getFirstAyahOfJoz(widget.initialJuz!);
@@ -322,6 +331,16 @@ class _SuraPageState extends State<SuraPage> {
     });
   }
 
+  @override
+  void dispose() {
+    _scrollTimer?.cancel();
+    _updateTimer?.cancel();
+    _audioPlayer.dispose();
+    _pageController.dispose();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+    super.dispose();
+  }
+
   void _scrollToAyah(int suraId, int ayahNumber) {
     final viewModel = Provider.of<QuranViewModel>(context, listen: false);
     setState(() {
@@ -349,16 +368,6 @@ class _SuraPageState extends State<SuraPage> {
     setState(() {
       _isScrollingToPage = false;
     });
-  }
-
-  @override
-  void dispose() {
-    _scrollTimer?.cancel();
-    _updateTimer?.cancel();
-    _audioPlayer.dispose();
-    _pageController.dispose();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-    super.dispose();
   }
 
   void _playAyah(int ayahIndex) async {
@@ -838,6 +847,29 @@ class _SuraPageState extends State<SuraPage> {
     );
   }
 
+  Widget _buildSpeedButton(double speed) {
+    return GestureDetector(
+      onTap: () => _setScrollSpeed(speed),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+        decoration: BoxDecoration(
+          color: _scrollSpeed == speed
+              ? const Color(0xFF1E5E3A)
+              : Colors.grey.shade600,
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: Text(
+          '${speed}x',
+          style: TextStyle(
+            color: _scrollSpeed == speed ? Colors.white : Colors.white70,
+            fontSize: 14,
+            fontFamily: 'vazirmatn',
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<QuranViewModel>(context);
@@ -983,31 +1015,9 @@ class _SuraPageState extends State<SuraPage> {
       ),
     );
   }
-
-  Widget _buildSpeedButton(double speed) {
-    return GestureDetector(
-      onTap: () => _setScrollSpeed(speed),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
-        decoration: BoxDecoration(
-          color: _scrollSpeed == speed
-              ? const Color(0xFF1E5E3A)
-              : Colors.grey.shade600,
-          borderRadius: BorderRadius.circular(12.0),
-        ),
-        child: Text(
-          '${speed}x',
-          style: TextStyle(
-            color: _scrollSpeed == speed ? Colors.white : Colors.white70,
-            fontSize: 14,
-            fontFamily: 'vazirmatn',
-          ),
-        ),
-      ),
-    );
-  }
 }
 
+// ویجت برای اقدامات اپ‌بار
 class _AppBarActions extends StatelessWidget {
   const _AppBarActions();
 
@@ -1049,6 +1059,7 @@ class _AppBarActions extends StatelessWidget {
   }
 }
 
+// ویجت برای انتخاب سوره
 class _SuraPickerContent extends StatelessWidget {
   final Function(int suraId, int index) onSuraSelected;
 
@@ -1065,7 +1076,10 @@ class _SuraPickerContent extends StatelessWidget {
         itemBuilder: (context, index) {
           final sura = viewModel.quranNameList[index];
           return ListTile(
-            title: Text(sura.sura, textDirection: TextDirection.rtl),
+            title: Text(
+              sura.sura,
+              textDirection: TextDirection.rtl,
+            ),
             onTap: () {
               onSuraSelected(sura.id, index);
             },
@@ -1076,6 +1090,7 @@ class _SuraPickerContent extends StatelessWidget {
   }
 }
 
+// ویجت برای کنترل سرعت اسکرول
 class _SpeedControlBar extends StatelessWidget {
   const _SpeedControlBar();
 
@@ -1107,6 +1122,7 @@ class _SpeedControlBar extends StatelessWidget {
   }
 }
 
+// ویجت برای پخش‌کننده کوچک
 class _MiniPlayer extends StatelessWidget {
   final bool isPlaying;
   final VoidCallback togglePlayPause;

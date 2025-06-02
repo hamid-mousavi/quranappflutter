@@ -173,4 +173,12 @@ class QuranViewModel extends ChangeNotifier {
   int getSuraIndexById(int suraId) {
     return quranNameList.indexWhere((name) => name.id == suraId);
   }
+
+  int getAyahCountBySura(int suraId) {
+    if (!quranNameList.any((sura) => sura.id == suraId)) {
+      print('سوره با شناسه $suraId یافت نشد');
+      return 0;
+    }
+    return quranTextList.where((ayah) => ayah.sura == suraId).length;
+  }
 }
